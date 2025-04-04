@@ -109,7 +109,7 @@ class GameSpriteKit: SKScene, SKPhysicsContactDelegate {
         progressBar.position = CGPoint(x: 0, y: 0)
         parentNode.addChild(progressBar)
         
-        let duration: TimeInterval = 120
+        let duration: TimeInterval = 180
         let finalWidth: CGFloat = 174
         
         let resizeAction = SKAction.customAction(withDuration: duration) { node, elapsedTime in
