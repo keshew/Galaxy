@@ -4,6 +4,20 @@ struct GalaxyMenuView: View {
     @StateObject var galaxyMenuModel =  GalaxyMenuViewModel()
     @ObservedObject var audioManager = SoundManager.shared
     
+    func getPosition(geometry: GeometryProxy) -> CGPoint {
+        if geometry.size.width > 850 {
+            return CGPoint(x: geometry.size.width / 1.065, y: geometry.size.height / 6)
+        } else if geometry.size.width > 650 {
+            return CGPoint(x: geometry.size.width / 1.08, y: geometry.size.height / 5.5)
+          } else if geometry.size.width > 400 {
+              return CGPoint(x: geometry.size.width / 1.18, y: geometry.size.height / 3.9)
+          } else if geometry.size.width < 380 {
+              return CGPoint(x: geometry.size.width / 1.19, y: geometry.size.height / 3.3)
+          } else {
+              return CGPoint(x: geometry.size.width / 1.18, y: geometry.size.height / 3.8)
+          }
+      }
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -12,14 +26,14 @@ struct GalaxyMenuView: View {
                     .ignoresSafeArea()
                 
                 if galaxyMenuModel.isSettings {
-                    VStack(spacing: 5) {
+                    VStack(spacing: 0) {
                         Button(action: {
                             audioManager.toggleSound()
                             galaxyMenuModel.isSound = audioManager.isSoundEnabled
                         }) {
                             Image(audioManager.isSoundEnabled ? .sound : .soundOff)
                                 .resizable()
-                                .frame(width: 87, height: 100)
+                                .frame(width: 74, height: 87)
                         }
 
                         Button(action: {
@@ -28,11 +42,11 @@ struct GalaxyMenuView: View {
                         }) {
                             Image(audioManager.isMusicEnabled ? .music : .musicOff)
                                 .resizable()
-                                .frame(width: 87, height: 100)
+                                .frame(width: 74, height: 87)
                         }
                     }
                     .zIndex(1)
-                    .position(galaxyMenuModel.getPosition(geometry: geometry))
+                    .position(getPosition(geometry: geometry))
                 }
                     
                 ScrollView(showsIndicators: false) {
@@ -58,19 +72,19 @@ struct GalaxyMenuView: View {
                         }
                         .padding(.horizontal)
                         
-                        Spacer(minLength: 25)
+                        Spacer(minLength: 35)
                         
                         Text("Galaclinco")
-                            .Sans(size: 56)
+                            .Sans(size: 46)
                         
-                        Spacer(minLength: 35)
+                        Spacer(minLength: 95)
                         
                         VStack(spacing: 20) {
                             HStack {
                                 ZStack {
                                     Image(.backButton)
                                         .resizable()
-                                        .frame(width: 159, height: 77)
+                                        .frame(width: 159, height: 67)
                                     
                                     HStack(spacing: 0) {
                                         Image(.coin)
@@ -92,7 +106,7 @@ struct GalaxyMenuView: View {
                                 ZStack {
                                     Image(.backButton)
                                         .resizable()
-                                        .frame(width: 159, height: 77)
+                                        .frame(width: 159, height: 67)
                                     
                                     HStack(spacing: 0) {
                                         Image(.lifes)
@@ -130,7 +144,7 @@ struct GalaxyMenuView: View {
                             }
                         }
                         
-                        Spacer(minLength: 65)
+                        Spacer(minLength: 75)
                         
                         VStack(spacing: 20) {
                             Button(action: {
@@ -139,12 +153,12 @@ struct GalaxyMenuView: View {
                                 ZStack {
                                     Image(.backButton2)
                                         .resizable()
-                                        .frame(width: 250, height: 120)
+                                        .frame(width: 250, height: 100)
                                     
                                     HStack {
                                         Image(.play)
                                             .resizable()
-                                            .frame(width: 98, height: 98)
+                                            .frame(width: 88, height: 88)
                                         
                                         Spacer()
                                         
@@ -153,7 +167,7 @@ struct GalaxyMenuView: View {
                                             .padding(.trailing, 60)
                                     }
                                 }
-                                .frame(width: 250, height: 120)
+                                .frame(width: 250, height: 100)
                             }
                             
                             HStack(spacing: 30) {
@@ -163,12 +177,12 @@ struct GalaxyMenuView: View {
                                     ZStack {
                                         Image(.backButton2)
                                             .resizable()
-                                            .frame(width: 160, height: 90)
+                                            .frame(width: 160, height: 80)
                                         
                                         HStack(spacing: -0) {
                                             Image(.records2)
                                                 .resizable()
-                                                .frame(width: 74, height: 77)
+                                                .frame(width: 64, height: 67)
                                                 
                                             Text("Records")
                                                 .Sans(size: 23)
@@ -185,12 +199,12 @@ struct GalaxyMenuView: View {
                                     ZStack {
                                         Image(.backButton2)
                                             .resizable()
-                                            .frame(width: 160, height: 90)
+                                            .frame(width: 160, height: 80)
                                         
                                         HStack(spacing: 10) {
                                             Image(.shop)
                                                 .resizable()
-                                                .frame(width: 74, height: 77)
+                                                .frame(width: 64, height: 67)
                                                 
                                             Text("Shop")
                                                 .Sans(size: 23)
